@@ -11,7 +11,8 @@ This project involves deploying a weather tracker application across AWS and Az
 - **Automate the infrastructure setup** with Terraform.
 
 ## Architecture
-(fazer o desenho da arquitetura no Draw.io e colar aqui)
+
+<img width="1032" height="560" alt="diagram-multicloud-weather-tracker" src="https://github.com/user-attachments/assets/a8c7f36a-a589-4bc4-a9f6-3d8ee8933e5d" />
 
 ### Services Used
 - **AWS S3 & Azure Blob Storage:** Host the weather app statically. [Hosting]
@@ -70,9 +71,9 @@ Validate Configuration Files:
 ```bash
 terraform validate
 ```
-This command checks the syntax and validity of the Terraform configuration files.
+This command checks the syntax and validity of the Terraform configuration files.  
 
-(colar print screen 1.7)
+<img width="1124" height="459" alt="1 7" src="https://github.com/user-attachments/assets/96f4947d-387b-4aa0-a13c-ea49a01bcd92" />
 
 ## 2. Define AWS Resources on Terraform
 The first step to create the multi-cloud weather tracker is to host the static content (HTML, CSS, JS, and assets) on an AWS S3 bucket with static website hosting enabled.
@@ -210,8 +211,9 @@ After the configuration is applied, Terraform will:
 - Configure static website hosting with a public read policy.
 
 ### 2.5 Access Your Website
-You can now access your hosted website using the S3 website endpoint.
-(Colar print 2.5)
+You can now access your hosted website using the S3 website endpoint.  
+
+<img width="1920" height="1080" alt="2 5" src="https://github.com/user-attachments/assets/4494c3b1-5780-4f20-8b75-cbc24a8f1a75" />
 
 ## 3. Define Azure Resources using Terraform
 
@@ -329,8 +331,9 @@ Review and Apply the Deployment:
 terraform plan -var-file="aws_credentials.tfvars" -var-file="azure_credentials.tfvars"
 terraform apply -var-file="aws_credentials.tfvars" -var-file="azure_credentials.tfvars"
 ```
-Once the files are uploaded, your static website will be accessible via the Azure Storage Account's public URL.
-(Colar print 3.2.5)
+Once the files are uploaded, your static website will be accessible via the Azure Storage Account's public URL.  
+
+<img width="1920" height="1080" alt="3 2 5" src="https://github.com/user-attachments/assets/af28a79e-e25b-4b62-9dc4-62e3f33c2816" />
 
 ## 4. Implement Disaster Recovery with Route 53 DNS Failover
 
@@ -355,7 +358,11 @@ Since CloudFront does not support HTTP to HTTPS redirection by default, you 
 
 **DNS Validation on Namecheap**  
 In Namecheap, go to Advanced DNS and add a new CNAME record under Host Records, using the CNAME name (only the part before your domain) and CNAME value provided by ACM, as shown in the example below.  
-(Colar print 4.3)  
+
+<img width="1595" height="612" alt="4 3" src="https://github.com/user-attachments/assets/52e8f477-3f0b-4f65-bff4-93cf476b3833" />  
+
+<img width="1595" height="612" alt="4 3ii" src="https://github.com/user-attachments/assets/357935e2-e9a1-4f88-b9a4-936bee9e579d" />  
+
 To verify that your DNS record is propagating correctly, you can run the following command in your terminal:
 ```bash
 nslookup -type=CNAME <CNAME_name_from_ACM>
@@ -447,16 +454,19 @@ To use Route 53 as your DNS provider, update the domain’s nameservers in Namec
 1. Log in to Namecheap.
 2. Go to Domain List → Manage your domain.
 3. Under Nameservers, select Custom DNS.
-4. Enter the AWS Route 53 nameservers (from your hosted zone).
-(Adicionar PRINT 4.7)
+4. Enter the AWS Route 53 nameservers (from your hosted zone).  
+
+<img width="1593" height="284" alt="4 7" src="https://github.com/user-attachments/assets/50168766-1f28-4215-aa59-435f109775d6" />
+
 
 ### 4.8 Verify DNS Propagation
 You can check if the domain is resolving correctly in https://www.whatsmydns.net/
 - Search for A record of `yourdomain.com`
 - Check CNAME record for `www.yourdomain.com`
 - Ensure CloudFront URL and domain are resolving correctly
-- Now you can try accessing your website by typing in the DNS.
-(Adicionar Print 4.8)
+- Now you can try accessing your website by typing in the DNS.  
+
+<img width="1223" height="951" alt="4 8" src="https://github.com/user-attachments/assets/62edc5d5-6eb8-45c9-9570-9aa27e3d7d97" />
 
 ### 4.9 Expected Behavior and Limitations
 - **Primary Site (AWS CloudFront):**  
@@ -499,7 +509,7 @@ Map your custom domain inside the Azure Storage Account under Custom Domain Sett
 Disable the “Secure transfer required” option temporarily in your Azure Storage Account to allow HTTP access during testing.  
 
 ## Clean-up
-to clean-up, run this command in your terminal: 
+To clean-up, run this command in your terminal: 
 ```bash
 terraform destroy
 ```
